@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Voting App</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Sortable/1.14.0/Sortable.min.js"></script>
+</head>
+<style>
+    .option{
+        width: 400px;
+        height: 50px;
+        padding: 4px;
+        margin: 4px;
+        border: 2px solid black;
+        border-radius: 5px;
+        box-shadow: inset 0px 0px 0px 1px;
+    }
+</style>
+<body>
+    <h1>What is your favourite language?</h1>
+    <form action="/vote" method="POST">
+        <ul id="sortable-list">
+            <li class="option" data-id="1">C++</li>
+            <li class="option" data-id="2">Javascript</li>
+            <li class="option" data-id="3">Python</li>
+            <li class="option" data-id="4">Rust</li>
+        </ul>
+        <input type="hidden" name="order" id="order">
+        <button type="submit">Submit Vote</button>
+    </form>
+
+    <script>
+        var sortable = new Sortable(document.getElementById('sortable-list'), {
+            onEnd: function () {
+                var order = sortable.toArray();
+                document.getElementById('order').value = order.join(',');
+            }
+        });
+    </script>
+</body>
+</html>
